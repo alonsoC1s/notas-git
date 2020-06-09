@@ -55,6 +55,12 @@ Un archivo se considera _staged_ (preparado) si se modifició y se añadió  al 
 Un archivo se considera _modified_ (modificado) si sufrió cambios desde la última versión que conoce Git, pero aún no se añade al _staging area_.
 Los archivos _modified_ que no sean añadidos al _staging area_ antes de efectuar un _commit_ no serán rastreados en ese _commit_, y sus cambios no se guardarán. 
 
+Todo lo anterior se puede resumir con la siguiente figura: 
+
+![lifecycle](figs/lifecycle.png)
+
+La dirección y mecánica de las flechas y sus movimientos se explica con mayor detalle más abajo en @[Git Basics]
+
 Basic Git Workflow
 ------------------
 
@@ -99,20 +105,50 @@ Getting a Git Repository
 
 Usualmente uno obtiene un repositorio de Git en dos maneras: 
 
-1. Tomas cualquier carpeta local en tu disco, y la conviertes en un repositorio con ```git init```, o bien
+1. Tomas cualquier carpeta local en tu disco, y la conviertes en un repositorio con `git init`, o bien
 
 2. _Clonas_ un repositorio de Git existente de algún otro lugar.
 
-Para crear un repositorio nuevo desde una carpeta local, basta con navegar hasta la carpeta deseada a través de la terminal de comandos, y ejecutar el comando ```git init``` que creará un repositorio nuevo con todo lo necesario para usar Git, y rastrear cambios en los archivos de ese directorio.
-El comando ```init`` crea un "esqueleto de git".
+Para crear un repositorio nuevo desde una carpeta local, basta con navegar hasta la carpeta deseada a través de la terminal de comandos, y ejecutar el comando `git init` que creará un repositorio nuevo con todo lo necesario para usar Git, y rastrear cambios en los archivos de ese directorio.
+El comando `init` crea un "esqueleto de git".
 En este punto, ningun archivo está siendo rastreado, todos aparecen como _untracked_.
-Si deseas empezar a rastrear cambios, debes cambiar el estatus de los archivos de _untracked_ a _tracked_ a través del commando ```git add```.
-Cabe mencionar que los archivos nuevos, es decir los originales en un directorio antes de correr ```git init```, o aquellos creados o añadidos después de haber creado el repositorio, siempre aparecerán por primera vez como _untracked_, hasta que se le señale a Git que se deben rastrear.
+Si deseas empezar a rastrear cambios, debes cambiar el estatus de los archivos de _untracked_ a _tracked_ a través del commando `git add`.
+Cabe mencionar que los archivos nuevos, es decir los originales en un directorio antes de correr `git init`, o aquellos creados o añadidos después de haber creado el repositorio, siempre aparecerán por primera vez como _untracked_, hasta que se le señale a Git que se deben rastrear.
 
 > Notas: 
-> El comando ```git add``` tiene dos funciones:
+> El comando `git add` tiene dos funciones:
 > Cambia el estatus de un archivo de _untracked_ a _tracked_, y además añade archivos _modified_ al _staging area_ para prepararlos para un _commit_.
 > 
-> ```add``` recibe como argumento nombres de archivos, o patrones _glob_.
+> `add` recibe como argumento nombres de archivos, o patrones _glob_.
 
-Tradicionalmente una vez que se han rastreado los archivos de interés se hace un ~primer commit~
+Tradicionalmente una vez que se han rastreado los archivos de interés se hace un ~primer commit~.
+
+````
+$ git commit -m "Primer commit"
+````
+
+El modificador `-m` es corto para `message`, y quiere decir que le mensaje de confirmación viene en seguida rodeado de comillas, como en el ejemplo de arriba.
+Si no se usa el modificador (flag) `-m`, Git abrirá el editor de texto default de la terminal, por ejemplo Vim, y estarás atrapado y confundido.
+
+
+Si deseas copiar un repositorio existente, por ejemplo, para contribuir a algún proyecto o con tu equipo, entonces se crea un nuevo repositorio con `git clone`.
+El comando `clone` recibe de argumento un URL a algún repositorio remoto.
+Por ejemplo, el comando a continuación clona el repositorio donde está alojado el libro Pro Git, de Scott Chacon, con base en el cual se hicieron estas notas. 
+
+````
+$ git clone https://github.com/progit/progit2
+````
+
+El comando clone crea una nueva carpeta en el directorio actual donde residirá el repositorio `.git` junto con los archivos en el que corresponde a la versión que clonaste.
+En automático el nombre de la carpeta que se va a crear es el nombre del repositorio, en este caso "progit2", pero también es posible especificar un nombre distinto.
+Por ejemplo, si queremos que la nueva carpeta se llame "libro-git", pasamos ese nombre como argumento adicional, es decir:
+
+````
+https://github.com/progit/progit2 libro-git
+```` 
+
+Recording Changes
+-----------------
+
+Una vez que se tiene un repositorio de Git y archivos rastreados, se puede empezar a usar todo el potencial de Git. 
+
