@@ -1,0 +1,263 @@
+\documentclass[spanish, 12pt, a4paper]{article}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[spanish, mexico]{babel}
+% \usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage[margin=3cm]{geometry}
+
+\definecolor{backcolor}{rgb}{0.95,0.95,0.92}
+\lstset{
+  basicstyle=\ttfamily\small,
+  backgroundcolor=\color{backcolor},
+  breaklines=true
+}
+
+\begin{document}
+\section{What is Git?}
+
+\subsection{Snapshots, Not differences}
+
+Los sistemas VCS usuales tienen un control de versiones
+\emph{delta-based}. Guardan listas de cambios por archivo.
+
+Git guarda snapshots de todos los archivos modificados y guarda
+apuntadores a cada estado. Cada repositorio de git es una copia completa
+y funcional del proyecto, no requiere dependencias externas y es todo
+local.
+
+Git hace checksums en cada commit, lo cual hace difícil o imposible
+modificar sin que Git se de cuenta o perder información porque todo se
+verifica y valida.
+
+\subsection{The Three States}
+
+Git tiene tres estados en los que puede estar un archivo en cualquier
+momento dado:
+
+\begin{itemize}
+\item
+  \textbf{Modified}: El archivo tiene modificaciones pero
+  aún no se le ordena a Git incluir los cambios en el siguiente ``commit''
+  o confirmación.
+\item
+  \textbf{Staged / Preparado}: El archivo fue modificado y marcado para
+  que Git lo observe y guarde su versión actual en el siguiente commit.
+\item
+  \textbf{Commited / Confirmado}: Los cambios al archivo ya fueron
+  observados y confirmados. Se guarda el estado actual del archivo en la
+  base de datos de Git.
+\end{itemize}
+
+Adicionalmente hay archivos que pueden estar dentro del directorio, en
+disco, y no existir dentro de la base de datos Git. Los tres estados
+anteriores solo aplican para archivos \emph{rastreados} o
+\emph{tracked}. Los archivos \emph{no-rastreados} o \emph{untracked}
+siguen dentro del alcance de búsqueda de Git, y éste aún los puede ver,
+pero tiene instrucciones de no rastrear modificiaciones.
+
+Similarmente, hay tres secciones o ``espacios'' en cada proyecto de Git:
+
+\begin{enumerate}
+\item
+  Working Directory.
+\item
+  Staging Area.
+\item
+  Git Repository.
+\end{enumerate}
+
+\emph{Working Directory} es el directorio ``fisico'', local en tu
+máquina en donde estás trabajando. Es como cualquier otra carpeta, pero
+tiene la particularidad de que hay una instancia de Git observándola. El
+\emph{Working Directory} es el \underline{checkout} de una versión
+particular del proyecto. Los archivos fueron descomprimidos de la base
+de datos de Git, y puestos en el disco para poder ser modificados como
+cualquier otro archivo.
+
+\emph{Staging Area} se puede pensar como el lugar físico a donde se
+mandan los archivos que están marcados como listos para ser confirmados
+(commited). En realidad es un archivo, pero la abstracción de lugar es
+más útil.
+
+\emph{Git repository} es donde vive la base de datos de Git, y todos los
+metadatos asociados. Aqui se guardan las diferentes versiones
+comprimidas de cada commit hecho, asi como apuntadores y metadatos de
+documentación. El archivo .git es el que contiene toda esta información,
+y es el que obtiene uno al clonar un repositorio.
+
+Un archivo particular se considera \emph{commited} (confirmado) si fue
+modificado, añadido al \emph{staging area}, y se hizo un \emph{commit}
+(confirmación). Los cambios que se le hicieron a ese archivo ahora están
+grabados en git. Un archivo se considera \emph{staged} (preparado) si se
+modifició y se añadió al \emph{staging area}. Un archivo se considera
+\emph{modified} (modificado) si sufrió cambios desde la última versión
+que conoce Git, pero aún no se añade al \emph{staging area}. Los
+archivos \emph{modified} que no sean añadidos al \emph{staging area}
+antes de efectuar un \emph{commit} no serán rastreados en ese
+\emph{commit}, y sus cambios no se guardarán.
+
+
+\subsection{Basic Git Workflow}
+
+\begin{enumerate}
+\item
+  Modifica archivos locales en disco.
+\item
+  Se elige qué archivos se desea rastrear (\emph{track}) añadiéndolos al
+  \emph{staging area}. Son estos y solo estos los archivos que serán
+  parte de la siguente confirmación.
+\item
+  Se lleva a cabo una \emph{confirmación}, en la que se toman un
+  snapshot del estado actual del \emph{staging area} y se guarda
+  permanentemente en el repositorio Git, junto con datos de
+  identificación y mensajes de confirmación.
+\end{enumerate}
+
+\subsection{Command Line Interface}
+
+Para obtener ayuda sobre el comando
+
+\begin{lstlisting}
+$ git add -h
+usage: git add [<options>] [--] <pathspec>...
+
+    -n, --dry-run         dry run
+    -v, --verbose         be verbose
+
+    -i, --interactive     interactive picking
+    -p, --patch           select hunks interactively
+    -e, --edit            edit current diff and apply
+    -f, --force           allow adding otherwise ignored files
+    -u, --update          update tracked files
+    --renormalize         renormalize EOL of tracked files (implies -u)
+    -N, --intent-to-add   record only the fact that the path will be added later
+    -A, --all             add changes from all tracked and untracked files
+    --ignore-removal      ignore paths removed in the working tree (same as --no-all)
+    --refresh             don't add, only refresh the index
+    --ignore-errors       just skip files which cannot be added because of errors
+    --ignore-missing      check if - even missing - files are ignored in dry run
+\end{lstlisting}
+
+\section{Git Basics}
+
+\subsection{Getting a Git Repository}
+
+Usualmente uno obtiene un repositorio de Git en dos maneras:
+
+\begin{enumerate}
+\item
+  Tomas cualquier carpeta local en tu disco, y la conviertes en un
+  repositorio con \texttt{git\ init}, o bien
+\item
+  \emph{Clonas} un repositorio de Git existente de algún otro lugar.
+\end{enumerate}
+
+Para crear un repositorio nuevo desde una carpeta local, basta con
+navegar hasta la carpeta deseada a través de la terminal de comandos, y
+ejecutar el comando \texttt{git\ init} que creará un repositorio nuevo
+con todo lo necesario para usar Git, y rastrear cambios en los archivos
+de ese directorio. El comando \texttt{init} crea un ``esqueleto de
+git''. En este punto, ningun archivo está siendo rastreado, todos
+aparecen como \emph{untracked}. Si deseas empezar a rastrear cambios,
+debes cambiar el estatus de los archivos de \emph{untracked} a
+\emph{tracked} a través del commando \texttt{git\ add}. Cabe mencionar
+que los archivos nuevos, es decir los originales en un directorio antes
+de correr \texttt{git\ init}, o aquellos creados o añadidos después de
+haber creado el repositorio, siempre aparecerán por primera vez como
+\emph{untracked}, hasta que se le señale a Git que se deben rastrear.
+
+\begin{quote}
+Notas: El comando \texttt{git add} tiene dos funciones: Cambia el
+estatus de un archivo de \emph{untracked} a \emph{tracked}, y además
+añade archivos \emph{modified} al \emph{staging area} para prepararlos
+para un \emph{commit}.
+
+\texttt{add} recibe como argumento nombres de archivos, o patrones
+\emph{glob}.
+\end{quote}
+
+Tradicionalmente una vez que se han rastreado los archivos de interés se
+hace un ``primer commit''.
+
+\begin{lstlisting}
+$ git commit -m "Primer commit"
+\end{lstlisting}
+
+El modificador \texttt{-m} es corto para \texttt{message}, y quiere
+decir que le mensaje de confirmación viene en seguida rodeado de
+comillas, como en el ejemplo de arriba. Si no se usa el modificador
+(flag) \texttt{-m}, Git abrirá el editor de texto default de la
+terminal, por ejemplo Vim, y estarás atrapado y confundido.
+
+Si deseas copiar un repositorio existente, por ejemplo, para contribuir
+a algún proyecto o con tu equipo, entonces se crea un nuevo repositorio
+con \texttt{git\ clone}. El comando \texttt{clone} recibe de argumento
+un URL a algún repositorio remoto. Por ejemplo, el comando a
+continuación clona el repositorio donde está alojado el libro Pro Git,
+de Scott Chacon, con base en el cual se hicieron estas notas.
+
+\begin{lstlisting}
+$ git clone https://github.com/progit/progit2
+\end{lstlisting}
+
+El comando clone crea una nueva carpeta en el directorio actual donde
+residirá el repositorio \texttt{.git} junto con los archivos en el que
+corresponde a la versión que clonaste. En automático el nombre de la
+carpeta que se va a crear es el nombre del repositorio, en este caso
+``progit2'', pero también es posible especificar un nombre distinto. Por
+ejemplo, si queremos que la nueva carpeta se llame ``libro-git'',
+pasamos ese nombre como argumento adicional, es decir:
+
+\begin{lstlisting}
+$ git clone https://github.com/progit/progit2 libro-git
+\end{lstlisting}
+
+\subsection{Recording Changes}
+
+Una vez que se tiene un repositorio de Git y archivos rastreados, se
+puede empezar a usar todo el potencial de Git.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth]{figs/lifecycle.png}
+  \caption{Ciclo de vida de un archivo en un Git Repo.}
+  \label{fig:lifecycle}
+\end{figure}
+
+Como habíamos dicho, un archivo puede estar en uno de cuatro estados en cualquier momento dado: \textit{untracked}, \textit{unmodified}, \textit{modified}, \textit{staged}, como lo muestra la figura \ref{fig:lifecycle}.
+
+Para checar en qué punto del ciclo se encuentran los archivos existe el comando \texttt{git status}.
+Por ejemplo, al correrlo cuando se ha iniciado un nuevo repo o no se han hecho cambios desde el último \textit{commit}, se ve asi:
+
+\begin{lstlisting}
+$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+nothing to commit, working directory clean
+\end{lstlisting}
+
+Con la frase ``working directory clean'' quiere decir que no hay cambios para el siguiente \textit{commit}, ya sea porque no se han rastreado los archivos o porque los archivos rastreados no han sido modificados desde el último \textit{commit}.
+Si se añaden archivos nuevos desde el último commit al correr \texttt{git status} saldrá un mensaje similar:
+\begin{lstlisting}
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        ejemplo.txt
+\end{lstlisting}
+con lo cual vemos que el archivo es reconocido por Git, pero que los cambios que se le hagan o su estado actual no serán rastreados por git.
+
+Una vez que se empieza a rastrear un archivo y se hace un primer \textit{commit} con el y se empiece a modificar, la siguiente vez que se corra \texttt{git status}, mostrará algo como lo siguiente: 
+\begin{lstlisting}
+On branch master
+  Changes not staged for commit:
+    (use "git add <file>..." to update what will be committed)
+    (use "git checkout -- <file>..." to discard changes in working directory)
+  
+          modified:   ejemplo.txt
+\end{lstlisting}. 
+Eso no quiere decir que el archivo (en este caso \texttt{ejemplo.txt}) dejó de ser rastreado por Git y que se perdió el historial de cambios, sino que Git reconoce los cambios hechos al archivo y ahora está esperando a que se añada al \textit{staging area} mediante \texttt{git add}, ya que Git deja al usuario decidir qué cambios se toman en cuenta para un commit dado, en vez de asumir que todos los cambios entre un \textit{commit} y el siguiente son todos relacionados con lo mismo.
+
+
+\end{document}
