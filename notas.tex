@@ -7,6 +7,13 @@
 \usepackage{listings}
 \usepackage[margin=3cm]{geometry}
 
+\usepackage{csquotes}
+\usepackage[
+  backend=biber,
+  citestyle=alphabetic,
+  ]{biblatex}
+\addbibresource{refs.bib}
+
 \definecolor{backcolor}{rgb}{0.95,0.95,0.92}
 \lstset{
   basicstyle=\ttfamily\small,
@@ -373,6 +380,45 @@ Cabe mencionar que este comando acepta no solo nombres de archivos, sino patrone
 
 \subsection{Viewing the Commit History}
 El punto entero de tener un sistema de control de versiones es poder registrar cambios graduales, por eso se tiene el sistema de commits.
-En caso 
+En caso de ser necesario, se puede navegar a puntos anteriores en el tiempo, y revertir a esos cambios.
+También se puede experimentar en el proyecto sin temor a dañar algo y que sea irreversible.
+
+Para revisar el historial de cambios y confirmaciones existe el comando \texttt{git log}.
+Por ejemplo, al correrlo dará un resultado como este:
+\begin{lstlisting}
+$ git log
+  commit ca82a6dff817ec66f44342007202690a93763949
+  Author: Scott Chacon <schacon@gee-mail.com>
+  Date:   Mon Mar 17 21:52:11 2008 -0700
+  
+      Change version number
+  
+  commit 085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7
+  Author: Scott Chacon <schacon@gee-mail.com>
+  Date:   Sat Mar 15 16:40:33 2008 -0700
+
+      Remove unnecessary test
+
+  commit a11bef06a3f659402fe7563abf99ad00de2209e6
+  Author: Scott Chacon <schacon@gee-mail.com>
+  Date:   Sat Mar 15 10:31:28 2008 -0700
+
+      Initial commit
+\end{lstlisting}
+
+Al correr \texttt{git log} sin argumentos se obtiene una lista de los commits del repo en orden cronológico inverso.
+Cada listado tiene la información relevante del commit: el checksum que sirve como identificación única, nombre y correo electrónico del autor, la fecha y hora de confirmación, y el mensaje que se dió.
+
+El comando \texttt{log} tiene una variedad de opciones.
+Por ejemplo, la opción \texttt{-n} muestra los $n$ commits más recientes.
+La opción \texttt{-p}, corto para \texttt{--patch}, muestra los cambios hechos por cada commit.
+Equivale a correr \texttt{diff} sobre cada commit individualmente.
+La opción \texttt{--stat} da estadísticas rápidas sobre cada commit como el número de líneas modificadas.
+
+Si el resultado aparece demasiado extenso hay una opción para hacerlo más legible: \texttt{--pretty}.
+La opción \texttt{--pretty} funciona como un diccionario key-value.
+Es decir, se utiliza con otras opciones, por ejemplo \texttt{oneline}, \texttt{short}, \texttt{full}, \texttt{fuller}.
+Si se necesita aún más flexibilidad el comando acepta un objeto tipo \textit{format}, en el que se le puede especificar un \textit{string format} para acomodar los datos que se crean convenientes en la forma deseada.
+Puesto que no es muy común no incluyo más detalles. Se pueden encontrar mejores referencias en \cite[pág.~88]{chacon-2009}
 
 \end{document}
