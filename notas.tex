@@ -21,6 +21,8 @@
   breaklines=true
 }
 
+\title{Notas Sueltas: Pro Git}
+
 \begin{document}
 \section{What is Git?}
 
@@ -488,6 +490,10 @@ Hablaremos más tarde de qué se hace cuando Git encuentra cambios conflictivos 
 \subsubsection{Pushing}
 Cuando deseas publicar tu versión del repo y el estado actual de los archivos rastreados, puedes usar el comando \texttt{git push <remote> <branch>} para \textit{empujar} los cambios a el \texttt{remote} que se da como argumento, a la rama que se especifica también entre corchetes.
 
+Un detalle importante es que para hacer \textit{push} a un \textit{remote}, tu versión local debe estar al día con la versión más reciente en el \textit{remote}.
+Si el \textit{remote} tiene cambios más recientes a los que están en tu \textit{Working Directory}, Git te pedirá que bajes los cambios del remoto y actualices tu versión a la que bajaste.
+Hasta entonces se puede hacer \textit{push}.
+
 Cabe mencionar que no siempre se tiene permiso de hacer \textit{push} a cualquier repositorio, se necesita que el dueño te de permiso.
 
 Cuando se tienen diferentes \textit{origin}s a los que se empuja y jala regularmente, a veces es util pedir ayuda para recordar qué nombre corto está asociado a qué \textsc{url}, entre otras cosas.
@@ -563,5 +569,81 @@ $ git push <remote> --delete <tagname>
 
 % ToDo: Checking out tags.
 % Creo que vale la pena explicar checkout antes de esto.
+
+Nota: Se pueden crear aliases para evitar escribir comandos largos con argumentos complejos.
+
+\section{Git Branching}
+El workflow de ramas (\textit{branches}) permite bifurcar el estado de los archivos en el \textit{Working Directory} para hacer modificaciones, sin arruinar el estado de la rama principal.
+Es usual crear ramas para desarrollar nuevas funciones, o incluso para hacer pruebas sin temor de arruinar un proyecto funcional.
+También es muy usual en un workflow de equipo tener diferentes ramas para cada integrante del equipo, o para sub-equipos.
+
+El comando para crear nuevas ramas es 
+\begin{lstlisting}
+$ git branch <branchname>
+\end{lstlisting}
+
+El crear nuevas ramas implica solamente crear un nuevo apuntador, que empieza apuntando al la rama en el cual se creó, en el mismo punto en el que se creó.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{figs/two-branches.png}
+  \caption{Creación de una nueva rama.}
+  \label{fig:two-branches}
+\end{figure}
+
+En la figura \ref{fig:two-branches} se muestra un ejemplo de lo que pasa cuando se crea una nueva rama.
+Las cajas grises con códigos hash unidas por flechas constituyen la rama original, usualmente llamada \textit{master}.
+Cada caja gris representa un \textit{commit}, representada por el código hash que la identifica.
+La caja amarilla apuntando al \textit{commit} \texttt{f30ab} representa al apuntador que viene con cada rama, en ese caso el apuntador original que identifica a la rama, por eso tiene el nombre \texttt{master}.
+En el momento en el que se crea una nueva rama aparece el nuevo apuntador (caja naranja), en este caso llamada \texttt{testing}.
+Esa nueva caja llevará el nombre de la nueva rama recién creada, y es la que se encarga de apuntar a los cambios que se hicieron \underline{mientras se trabajaba en esa rama}.
+En el momento en que se haga un nuevo \textit{commit} estando en \texttt{testing}, el apuntador naranja avanzará, dejando atrás a \texttt{master}.
+A partir de ese punto se pueden combinar (\textit{merge}) las ramas \texttt{master} y \texttt{testing} para ponerlas al día, o bien, regresar el estado de \texttt{testing} a como estaba en \texttt{master}.
+
+El apuntador especial \texttt{HEAD} indica a Git en qué punto se está trabajando en un momento dado.
+Es decir, apunta a la rama y el punto sobre ella sobre el cual se escribirá al hacer un nuevo \textit{commit}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{figs/head-to-master.png}
+  \caption{\texttt{HEAD} apuntando a \texttt{master}}
+\end{figure}
+
+Para cambiar de rama, es decir mover el apuntador \texttt{HEAD} para apuntar a \texttt{testing} y empezar a hacer \textit{commit} ahi, usamos el comando
+\begin{lstlisting}
+$ git checkout <branch>
+\end{lstlisting}
+
+Si ahora hacemos un nuevo \textit{commit} después de haber cambiado a \texttt{testing} pasará lo siguiente: 
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{figs/advance-testing.png}
+  \caption{\texttt{HEAD} avanzó dejando atrás \texttt{master}.}
+\end{figure}
+
+Si corremos el comando
+\begin{lstlisting}
+$ git checkout master
+\end{lstlisting}
+en este momento, \texttt{HEAD} los archivos del \textit{Working Directory} volverán al estado en el que estaban en ese momento, y además se moverá \texttt{HEAD} de vuelta a ese punto.
+Es decir, si hacemos un nuevo \textit{commit} en este punto, ahora habrá una bifurcación entre \texttt{master} y \texttt{testing}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{figs/advance-testing.png}
+  \caption{Bifurcación entre \texttt{master} y \texttt{testing}.}
+\end{figure}
+
+Como muestra la figura, al hacer nuevos \textit{commits} se hace avanzar \texttt{HEAD}.
+Ambas ramas convergen en \texttt{f30ab} porque son el ancestro que tienen en común.
+Para visualizar estos movimientos se puede usar \texttt{git log --oneline --decorate --graph --all}.
+
+Para crear una rama nueva y moverse a ella en un solo comando, se utiliza \texttt{git checkout} con la opción \texttt{-b}, corto para \texttt{--branch}.
+Por ejemplo
+\begin{lstlisting}
+$ git checkout testing
+\end{lstlisting}
+crea una nueva rama llamada \texttt{testing}, y además mueve \texttt{HEAD} a ella para que el siguiente \textit{commit} se haga sobre la nueva rama.
 
 \end{document}
