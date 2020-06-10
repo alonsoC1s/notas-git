@@ -365,6 +365,14 @@ $ git commit -a -m "Fixes"
 \end{lstlisting}
 
 \section{Removing Files}
-Para quitar archivos del repositorio de Git hay que sacarlos 
+Para quitar archivos del repositorio de Git hay que sacarlos de los archivos rastreados.
+Para eso existe el comando \texttt{git rm}.
+Mucho cuidado, \texttt{rm} no solo remueve el archivo de la base de datos de Git, también lo elimina en tu \textit{Working Directory}!
+Para quitarlo de los archivos rastreados sin eliminarlo del directorio local se utiliza la opción \texttt{--cached}.
+Cabe mencionar que este comando acepta no solo nombres de archivos, sino patrones Glob como se mencionó antes.
+
+\subsection{Viewing the Commit History}
+El punto entero de tener un sistema de control de versiones es poder registrar cambios graduales, por eso se tiene el sistema de commits.
+En caso 
 
 \end{document}
