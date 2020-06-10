@@ -2,7 +2,7 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage[spanish, mexico]{babel}
-% \usepackage[utf8]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage{xcolor}
 \usepackage{listings}
 \usepackage[margin=3cm]{geometry}
@@ -259,5 +259,109 @@ On branch master
 \end{lstlisting}. 
 Eso no quiere decir que el archivo (en este caso \texttt{ejemplo.txt}) dejó de ser rastreado por Git y que se perdió el historial de cambios, sino que Git reconoce los cambios hechos al archivo y ahora está esperando a que se añada al \textit{staging area} mediante \texttt{git add}, ya que Git deja al usuario decidir qué cambios se toman en cuenta para un commit dado, en vez de asumir que todos los cambios entre un \textit{commit} y el siguiente son todos relacionados con lo mismo.
 
+Cubiertos los básicos, hay un flag (opción) que se puede pasar al comando \texttt{git status} para hacerlo más corto y facil de entender: el flag \texttt{-s} que es corto para \texttt{--short}.
+\begin{lstlisting}
+$ git status -s
+  M  ejemplo.txt
+  A  anadido.txt
+  ?? otro.txt
+\end{lstlisting}
+
+Ahora en vez de listar archivos como \textit{staged}, \textit{modified}, etc\dots Git muestra una lista corta de los archivos de interés con una letra mayúscula a su izquierda.
+Esa letra a la izquierda se llama \underline{código de estatus}.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|c|l|}
+    \hline
+    Código de Estatus & Significado \\
+    \hline \hline
+      & Sin modificar \\
+    \hline
+    \textbf{M} & Modificado \\
+    \hline
+    \textbf{A} & Añadido \\
+    \hline
+    \textbf{D} & Eliminado (deleted) \\
+    \hline
+    \textbf{R} & Renombrado \\
+    \hline
+    \textbf{C} & Copiado \\
+    \hline
+    \textbf{U} & Actualizado (updated)\\
+    \hline
+    \textbf{??} & Untracked (sin rastrear) \\
+    \hline 
+  \end{tabular}
+  \caption{Guía de códigos de estatus para \texttt{git status -s}}
+\end{table}
+
+\subsection{Ignoring Files}
+Muchas veces hay archivos temporales que se crean al correr código en los cuales no estamos interesados.
+Para evitar que Git esté listándolos siempre que se corra \texttt{status} o añadirlos por error, se puede crear una lista de archivos que no nos interesa rastrear y preferimos que Git ignore por completo.
+Esto se hace a través de un \texttt{.gitignore}.
+
+Un \texttt{.gitignore} es un archivo que le dice a Git que archivos no estamos interesados en rastrear.
+Por ejemplo, puede que no estemos interesados en archivos \texttt{.log}, o en archivos \texttt{.aux} que se crean con la compilación de archivos \TeX.
+En vez de listarlos por nombre, podemos utilizar \underline{patrones}.
+Para esto se utilizan patrones Glob, que son como expresiones regulares (regex) simplificadas.
+El ejemplo mas simple es el siguiente:
+\begin{lstlisting}
+# Git ignore para proyecto x 
+*.log
+*.aux
+Build/
+\end{lstlisting}
+
+La primera linea empieza con un \#, y se toma como un comentario.
+Usualmente es util para aclarar el propósito del \texttt{.gitignore} u otras cosas.
+El patrón \texttt{*.log} quiere decir ``ignora todos los archivos que terminen con \texttt{.log}''.
+Ese mismo patron se puede usar con la extensión de archivo que sea, \texttt{.log} no tiene nada de especial.
+Análogamente el patrón \texttt{Build/} indica que no se debe rastrear nada dentro de la carpeta \texttt{Build} ni de sus subdirectorios.
+Afortunadamente, no hace falta tener esto en cuenta la mayoría del tiempo.
+GitHub mantiene una librería de \texttt{.gitignore}s estándar para una gran variedad de lenguajes de programación y proyectos, la cual está disponible en \url{https://github.com/github/gitignore}.
+
+\subsection{Viewing Staged and Unstaged Changes}
+Para revisar y comparar cambios con la versión anterior de un archivo el comando \texttt{status} no es muy útil.
+El comando para esto es \texttt{git diff}.
+Cuando se corre el comando \texttt{diff} sin argumentos Git mostrará una comparación de los archivos que están en el área de trabajo (\textit{working directory}) y la versión que está en el \textit{Staging Area}, es decir que está lista para ser confirmada.
+Si se quiere comparar los cambios que ya fueron mandados al \textit{Staging Area}, y que serán efectuados al siguiente \textit{commit}, se corre con los argumentos \texttt{git diff --staged}.
+Con el arugmento \texttt{staged} se compara el \textit{commit} más reciente con los cambios hechos a un archivo desde ese \textit{commit}.
+
+Ahora bien, correr \texttt{git diff} directamente en la terminal abre el editor Vim en modo de lectura, lo cual no siempre es lo más cómodo porque Vim no es precisamente intuitivo.
+En la práctica es más facil dejar que esto lo haga una de las interfaces gráficas de Git.
+En la mayoría de los casos vienen integradas con tu editor o IDE, y si todo eso falla puedes utilizar el comando \texttt{git difftool --tool} para ver que visualizadores tienes disponibles, o simplemente \texttt{git difftool} para lanzar la herramienta default\footnote{Cuidado. Este es uno de los comandos que te pueden dejar atrapado en Vim. Si nunca has usado Vim es mejor usar otra interfaz gráfica.}.
+
+\subsection{Committing Your Changes}
+Una vez que hayas terminado los cambios que deseabas hacer y los añadiste al \textit{Staging Area}, es momento de guardar el estado actual de los archivos mediante un \textit{commit}.
+Para esto, tenemos el comando con un nombre adecuado, \texttt{git commit}.
+Una vez más, este comando tiene flags opcionales.
+En este caso la importante es \texttt{-m}, corto para \texttt{--message}.
+En caso de que no se pase esta opción, Git lanzará el editor por defecto de la terminal, en muchos casos Vim.
+Para evitar quedar atrapado en Vim, puedes usar
+\begin{lstlisting}
+$ git commit -m "Mensaje de commit"
+\end{lstlisting}
+para poner un mensaje de confirmación o \textit{commit message} sin necesidad de abrir un editor de texto.
+Tradicionalmente el \textit{commit message} se utiliza para listar los cambios hechos desde el último \textit{commit} en caso de que sea necesario revertir a ese estado por alguna razón.
+
+Un ejemplo de el output de \texttt{git commit -m}, sacado de Pro Git.
+\begin{lstlisting}
+$ git commit -m "Story 182: fix benchmarks for speed"
+  [master 463dc4f] Story 182: fix benchmarks for speed
+   2 files changed, 2 insertions(+)
+   create mode 100644 README
+\end{lstlisting}
+
+En el texto de salida del comando vemos algunas cosas interesantes.
+Por ejemplo vemos el nombre del \textit{branch} o rama al que se confirmaron tus cambios (en este caso \texttt{master})\footnote{más sobre ramás adelante}, y un código alfanumérico llamado checksum, en este caso \texttt{463dc4f}, y un resumen corto de los cambios, inserciones y eliminaciones.
+
+Dado que la mayoría del tiempo se quieren agregar todos los archivos modificados al staging area sería deseable poder brincar el comando \texttt{git add .} y confirmar todos los cambios en un solo comando.
+Para eso existe el flag \texttt{-a}, el cual equivale a añadir todos los cambios al \textit{Staging Area} y luego confirmarlos con \texttt{commit}.
+Los flags \texttt{-a} y \texttt{-m} se pueden usar juntos, pero poneindo \texttt{-m} al final (puesto que la sintaxis usual de interfaces de command line espera el argumento de un flag inmediatamente después de que se utilice este flag).
+Por ejemplo:
+\begin{lstlisting}
+$git commit -a -m "Fixes"
+\end{lstlisting}
 
 \end{document}
