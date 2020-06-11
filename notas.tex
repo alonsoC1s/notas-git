@@ -664,6 +664,62 @@ Sin embargo, como los cambios en ambas ramas no conflictúan entre sí, Git aún
 Cuando esto sucede, se dice que no hay conflictos.
 En este caso particular, la unión se hace entre los dos nodos usuales más un tercer nodo que es su ancestro común más cercano.
 
+Al unir dos ramas, Git combina los contenidos de manera automática (si puede), y automáticamente crea un nuevo \textit{commit}.
+
 \subsubsection{Basic Merge Conflicts}
+Hay ocasiones en las que Git no puede hacer uniones simples y necesita consultar con un usuario cuales cambios mantener.
+Estos conflictos se dan cuando se intentan fusionar (unir) dos ramas que tienen cambios que no son compatibles entre si.
+Por ejemplo, cuando se modifica un archivo de dos maneras distintas en el mismo lugar con respecto a el ancestro en común más cercano.
+
+Un ejemplo de cuando no se puede hacer una unión limpia:
+\begin{lstlisting}
+$ git merge iss53
+Auto-merging index.html
+CONFLICT (content): Merge conflict in index.html
+Automatic merge failed; fix conflicts and then commit the result.
+\end{lstlisting}
+
+Cuando sucede un conflicto, Git pausa el proceso de unión que culmina con un \textit{commit} y espera a que el usuario resuelva los conflictos.
+Si corremos \texttt{git status} después de un conflicto, podemos ver en qué archivos se dió el conflicto para empezar a solucionarlo
+\begin{lstlisting}
+$git status
+On branch master
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+
+    both modified:      index.html
+
+no changes added to commit (use "git add" and/or "git commit -a")
+\end{lstlisting}
+
+En el ejemplo anterior el conflicto se dió en el archivo \texttt{index.html}.
+Cuando ocurre un conflicto Git modifica los archivos y les añade marcadores para ayudar a resolver el conflicto.
+Estos marcadores están para que se pueda abrir manualmente el archivo, y decidir qué cambios se quedan y cuales se van.
+Abriendo el archivo con conflicto, se vería algo como esto:
+\begin{lstlisting}
+<<<<<<< HEAD:archivo.txt
+Contenido en HEAD. Es decir, rama local hacia la cual se hace la union
+=======
+Contenido en branch, rama que esta siendo unida a HEAD
+>>>>>>> branchname:archivo.txt
+\end{lstlisting}
+
+Entre los corchetes de apertura \texttt{<<<<<<<} y el separador \texttt{=======} están los cambios que están en donde actualmente se encuentra \texttt{HEAD}.
+Es decir, los cambios en la rama que está activada actualmente, hacia la cual se quiere unir.
+En el encabezado se aclara en qué rama está, y el archivo que tuvo conflictos.
+En la parte desde el separador hasta los corchetes de cerradura \texttt{>>>>>>>} están los cambios \textit{incoming}.
+Es decir, los que están en la rama que se está tratando de unir.
+
+Algunos editores de texto y IDEs están configurados para reconocer estos bloques generados automáticamente por Git, y dan ayuda visual poniendolos en fondos de colores, o dando botones de ayuda para aceptar cambios \textit{incoming}, mantener el estado actual, o incluso mantener ambos.
+Si tu editor o IDE no tiene esta funcionalidad, puedes usar las herramientas visuales que vienen con Git, corriendo \texttt{git mergetool}.
+
+Para resolver un conflicto se eligen los cambios a mantener (o se borran ambos), y se quitan los marcadores generados por Git.
+Una vez que se decidió qué cambios mantener y se añade el archivo resuelto (sin marcadores) al \textit{Staging Area}, Git entenderá que el conflicto fue resuelto.
+Si se corre \texttt{git status} en este punto Git pedirá confirmación de que se resolvió exitosamente el conflicto.
+Para finalizar la unión se confirman todos los cambios con \texttt{git commit}.
+Nótese que ahora no escribimos un mensaje de confirmación, Git lo añade automáticamente con la información más importante para señalizar que hubo una unión y resolución de conflicto.
 
 \end{document}
