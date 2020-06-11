@@ -631,11 +631,12 @@ Es decir, si hacemos un nuevo \textit{commit} en este punto, ahora habrá una bi
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=\textwidth]{figs/advance-testing.png}
+  \includegraphics[width=\textwidth]{figs/advance-master.png}
   \caption{Bifurcación entre \texttt{master} y \texttt{testing}.}
+  \label{fig:bifurcacion}
 \end{figure}
 
-Como muestra la figura, al hacer nuevos \textit{commits} se hace avanzar \texttt{HEAD}.
+Como muestra la figura \ref{fig:bifurcacion}, al hacer nuevos \textit{commits} se hace avanzar \texttt{HEAD}.
 Ambas ramas convergen en \texttt{f30ab} porque son el ancestro que tienen en común.
 Para visualizar estos movimientos se puede usar \texttt{git log --oneline --decorate --graph --all}.
 
@@ -645,5 +646,18 @@ Por ejemplo
 $ git checkout testing
 \end{lstlisting}
 crea una nueva rama llamada \texttt{testing}, y además mueve \texttt{HEAD} a ella para que el siguiente \textit{commit} se haga sobre la nueva rama.
+
+\subsection{Basic Branching and Merging}
+El procedimiento básico para unir (\textit{merge}) dos ramas es moverse, o ``activar'' (\textit{checkout}) la rama hacia la cual se va a unir, y correr el comando \texttt{git merge <branch>}.
+Hay diferentes tipos de \textit{merge}s que pueden ocurrir.
+Cuando la rama que se unió estába directamente adelante, sin cambios divergentes, Git lleva a cabo una unión \textit{fast-forward} (avance rápido).
+Es decir, Git simplemente mueve el apuntador \texttt{HEAD} hacia adelante.
+
+Si después de unir dos ramas ya no necesitas la que fue unida, la puedes eliminar fácilmente con el comando \texttt{branch} y la opción \texttt{-d}, corto para \texttt{--delete} 
+\begin{lstlisting}
+$ git branch -d <branch>
+\end{lstlisting}
+
+Cuando intentas unir dos ramas con cambios divergentes, o a la que se intenta unir no es ancestro directo de la que se une, Git no puede hacer una unión \textit{fast-forward}.
 
 \end{document}
