@@ -662,8 +662,8 @@ $ git branch -d <branch>
 \end{lstlisting}
 
 Cuando intentas unir dos ramas con cambios divergentes, o a la que se intenta unir no es ancestro directo de la que se une, Git no puede hacer una unión \textit{fast-forward}.
-En esos casos, Git tiene que hacer una unión entre tres commits, que podemos pensar como nodos sobre las ramas.
-Sin embargo, como los cambios en ambas ramas no conflictúan entre sí, Git aún puede hacer una unión simple.
+En esos casos, Git tiene que hacer una unión entre tres commits (\textit{three-way merge}), que podemos pensar como nodos sobre las ramas.
+Sin embargo, como los cambios en ambas ramas no conflictúan entre sí, Git aún puede hacer una unión simple; es decir, una que no requiere intervención del usuario.
 Cuando esto sucede, se dice que no hay conflictos.
 En este caso particular, la unión se hace entre los dos nodos usuales más un tercer nodo que es su ancestro común más cercano.
 
@@ -756,5 +756,17 @@ Esto es en realidad más descriptivo que normativo, pero es útil para estructur
 En especial porque estos \textit{workflows} están diseñados para evitar conflictos a la hora de las uniones, y tener tantas uniones simples como sea posible.
 
 \subsubsection{Long-Running Branches}
+La estructura de desarrollo de ramas \textit{long-running} se basa en tener un número pequeño de ramas principales que siempre están abiertas, dedicadas a las diferentes etapas del desarrollo, las cuales se unen entre si de manera regular.
+
+Una estrategia común es tener dos ramas principales: \textit{master} y \textit{development} (los nombres no son importantes).
+En \texttt{master} se tiene el código en su estado más pulido, mientras que en \texttt{development} se hacen los cambios importantes que solo se unen a \texttt{master} una vez que están terminados, probados, etc\dots
+Es usual agregar una rama o serie de ramas más dedicadas a resolver problemas particulares.
+Estas ramas se unen a \texttt{development} una vez que se resolvió aquello para lo cual fueron creadas, y se eliminan poco después.
+Este tipo de ramas se conocen como \textit{topic branches}, o ramas de tema.
+
+Es útil pensar en las ramas estructuradas de esta manera como almacenes en los que se guarda código en función de su madurez.
+
+
+
 
 \end{document}
