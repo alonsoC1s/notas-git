@@ -614,6 +614,9 @@ Para cambiar de rama, es decir mover el apuntador \texttt{HEAD} para apuntar a \
 $ git checkout <branch>
 \end{lstlisting}
 
+A la rama activa se le dice la rama \textit{checked-out}.
+Esto claro tiene que ver con que el comando para activar y crear ramas es \texttt{git checkout}, pero \texttt{checkout} hace más que eso.
+
 Si ahora hacemos un nuevo \textit{commit} después de haber cambiado a \texttt{testing} pasará lo siguiente: 
 
 \begin{figure}[h]
@@ -721,5 +724,37 @@ Una vez que se decidió qué cambios mantener y se añade el archivo resuelto (s
 Si se corre \texttt{git status} en este punto Git pedirá confirmación de que se resolvió exitosamente el conflicto.
 Para finalizar la unión se confirman todos los cambios con \texttt{git commit}.
 Nótese que ahora no escribimos un mensaje de confirmación, Git lo añade automáticamente con la información más importante para señalizar que hubo una unión y resolución de conflicto.
+
+\subsubsection{Branch Management}
+El comando \texttt{git branch} al usarse sin argumentos va a listar todas las ramas del repo, y marca la activa con un \texttt{*} al lado izquierdo de su nombre.
+Para mostrar el \textit{commit} más reciente en cada rama, se puede usar \texttt{git branch -v}.
+
+A veces es util ver si las ramas tienen cambios incorporados a la rama actual, o si aún no se han unido.
+Para esto existen las opciones \texttt{--merged} y \texttt{--no-merged} que actúan como filtro.
+Por ejemplo al correr
+\begin{lstlisting}
+$ git branch --merged
+  mergedbranch 
+* master
+\end{lstlisting}
+vemos que la rama \texttt{mergedbranch} ya fué unida a \texttt{master}.
+Como ya está unida, es seguro eliminarla con \texttt{git branch -d mergedbranch} sin ningún peligro.
+Sin embargo, si intentamos eliminar una rama que no ha sido unida, digamos \texttt{unmerged-b}, Git nos dará un error y pedirá confirmación.
+\begin{lstlisting}
+$ git branch -d unmerged-b
+error: The branch 'unmerged-b' is not fully merged.
+If you are sure you want to delete it, run 'git branch -D unmerged-b'.
+\end{lstlisting}
+
+Como muestra el mensaje de ayuda del comando anterior, se puede sobreescribir el mecanismo de Git diseñado para no perder cambios usando el switch \texttt{-D} (en mayúscula).
+Esto solo se hace si estás consciente de que se perderán todos los cambios en esa rama.
+Por ejemplo, si era una rama \textit{throwaway} en la que se hizo un experimento. 
+
+\subsection{Branching Workflows}
+En esta subsección revisamos algunos de los \textit{workflows} más comunes que se usan para trabajar con Git y ramas.
+Esto es en realidad más descriptivo que normativo, pero es útil para estructurar proyectos grandes.
+En especial porque estos \textit{workflows} están diseñados para evitar conflictos a la hora de las uniones, y tener tantas uniones simples como sea posible.
+
+\subsubsection{Long-Running Branches}
 
 \end{document}
