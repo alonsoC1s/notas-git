@@ -766,7 +766,27 @@ Este tipo de ramas se conocen como \textit{topic branches}, o ramas de tema.
 
 Es útil pensar en las ramas estructuradas de esta manera como almacenes en los que se guarda código en función de su madurez.
 
+% ToDo:
+% Remote branches
 
+\subsection{Rebasing}
+Como el nombre sugiere, consiste en cambiar de base una versión particular.
+Es decir, es como hacer los cambios que se efectuaron a través de una rama, como si se hubieran hecho empezando desde otro punto de la rama o de otra rama por completo.
+\begin{lstlisting}
+$ git rebase master
+\end{lstlisting}
+
+La operación funciona encontrando al ancestro común de las dos ramas que se están uniendo, y aplicando lo cambios gradualmente.
+Una vez que se hace un \textit{rebase}, se puede hacer un \textit{merge} simple del tipo \textit{fast-forward} hasta la punta de la rama.
+Todo eso gracias a que ahora la punta de la rama y el \textit{commit} al que se hizo el \textit{rebase} tienen una ancestría en común, una ancestría lineal.
+Ya no hay ningún conflicto de versiones.
+
+Vale la pena hacer notar que el producto final no tiene nada de diferente a hacer un \textit{merge}.
+La única ventaja notable es que hace que la historia de \textit{commits}, los logs, esté más limpio y claro.
+
+Hay rebases más complejos, pero francamente no entendí del todo, y valdrá la pena revisarlo con más calma.
+
+\section{Distributed workflows}
 
 
 \end{document}
