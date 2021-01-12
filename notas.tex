@@ -265,7 +265,7 @@ On branch master
     (use "git checkout -- <file>..." to discard changes in working directory)
   
           modified:   ejemplo.txt
-\end{lstlisting}. 
+\end{lstlisting} 
 Eso no quiere decir que el archivo (en este caso \texttt{ejemplo.txt}) dejó de ser rastreado por Git y que se perdió el historial de cambios, sino que Git reconoce los cambios hechos al archivo y ahora está esperando a que se añada al \textit{staging area} mediante \texttt{git add}, ya que Git deja al usuario decidir qué cambios se toman en cuenta para un commit dado, en vez de asumir que todos los cambios entre un \textit{commit} y el siguiente son todos relacionados con lo mismo.
 
 Cubiertos los básicos, hay un flag (opción) que se puede pasar al comando \texttt{git status} para hacerlo más corto y facil de entender: el flag \texttt{-s} que es corto para \texttt{--short}.
