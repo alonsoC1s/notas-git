@@ -257,15 +257,15 @@ Untracked files:
 \end{lstlisting}
 con lo cual vemos que el archivo es reconocido por Git, pero que los cambios que se le hagan o su estado actual no serán rastreados por git.
 
-Una vez que se empieza a rastrear un archivo y se hace un primer \textit{commit} con el y se empiece a modificar, la siguiente vez que se corra \texttt{git status}, mostrará algo como lo siguiente: 
+Una vez que se empieza a rastrear un archivo y se hace un primer \textit{commit} con el y se empiece a modificar, la siguiente vez que se corra \texttt{git status}, mostrará algo como lo siguiente:
 \begin{lstlisting}
 On branch master
   Changes not staged for commit:
     (use "git add <file>..." to update what will be committed)
     (use "git checkout -- <file>..." to discard changes in working directory)
-  
+
           modified:   ejemplo.txt
-\end{lstlisting} 
+\end{lstlisting}
 Eso no quiere decir que el archivo (en este caso \texttt{ejemplo.txt}) dejó de ser rastreado por Git y que se perdió el historial de cambios, sino que Git reconoce los cambios hechos al archivo y ahora está esperando a que se añada al \textit{staging area} mediante \texttt{git add}, ya que Git deja al usuario decidir qué cambios se toman en cuenta para un commit dado, en vez de asumir que todos los cambios entre un \textit{commit} y el siguiente son todos relacionados con lo mismo.
 
 Cubiertos los básicos, hay un flag (opción) que se puede pasar al comando \texttt{git status} para hacerlo más corto y facil de entender: el flag \texttt{-s} que es corto para \texttt{--short}.
@@ -300,7 +300,7 @@ Esa letra a la izquierda se llama \underline{código de estatus}.
     \textbf{U} & Actualizado (updated)\\
     \hline
     \textbf{??} & Untracked (sin rastrear) \\
-    \hline 
+    \hline
   \end{tabular}
   \caption{Guía de códigos de estatus para \texttt{git status -s}}
 \end{table}
@@ -316,7 +316,7 @@ En vez de listarlos por nombre, podemos utilizar \underline{patrones}.
 Para esto se utilizan patrones Glob, que son como expresiones regulares (regex) simplificadas.
 El ejemplo mas simple es el siguiente:
 \begin{lstlisting}
-# Git ignore para proyecto x 
+# Git ignore para proyecto x
 *.log
 *.aux
 Build/
@@ -392,9 +392,9 @@ $ git log
   commit ca82a6dff817ec66f44342007202690a93763949
   Author: Scott Chacon <schacon@gee-mail.com>
   Date:   Mon Mar 17 21:52:11 2008 -0700
-  
+
       Change version number
-  
+
   commit 085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7
   Author: Scott Chacon <schacon@gee-mail.com>
   Date:   Sat Mar 15 16:40:33 2008 -0700
@@ -425,7 +425,7 @@ Puesto que no es muy común no incluyo más detalles. Se pueden encontrar mejore
 
 Una buena opción para un log corto es \texttt{git log --oneline --decorate}, que da por ejemplo:
 \begin{lstlisting}
-$ git log --oneline --decorate               
+$ git log --oneline --decorate
 a3eb382 (HEAD -> master) Viewing commit history
 ca82a6d Change version number
 17c4c59 Remove unnecessary test
@@ -485,7 +485,7 @@ Este comando baja la versión más reciente del repo disponible en el \textit{re
 El estado de los archivos en tu \textit{Working Directory} no se ve afectado por \texttt{fetch}, y para incorporar los cambios se tendría que hacer una unión (\textit{merge}) entre la rama actual y la que se creó, lo cual discutiremos a detalle en la sección sobre ramas.
 Afortunadamente, el comando \texttt{git pull <remote> <branch>} ahorra el proceso de unir ramas, y además de bajar los cambios más recientes del \textit{remote}, los combina automáticamente con el estado actual de los archivos en el \textit{Working Directory}.
 Lo realmente interesante de Git está en lo que está escrito arriba: Git puede combinar cambios automáticamente y en la mayoría de los casos, sin ninguna clase de ayuda.
-Hablaremos más tarde de qué se hace cuando Git encuentra cambios conflictivos entre el estado de un archivo en el \textit{Working Directory} y la versión en el \textit{remote}. 
+Hablaremos más tarde de qué se hace cuando Git encuentra cambios conflictivos entre el estado de un archivo en el \textit{Working Directory} y la versión en el \textit{remote}.
 
 \subsubsection{Pushing}
 Cuando deseas publicar tu versión del repo y el estado actual de los archivos rastreados, puedes usar el comando \texttt{git push <remote> <branch>} para \textit{empujar} los cambios a el \texttt{remote} que se da como argumento, a la rama que se especifica también entre corchetes.
@@ -540,7 +540,7 @@ $ git tag -a v1.0 -m "Version 1!"
 El swith \texttt{-a} es corto para \texttt{--annotated}.
 
 Para crear una etiqueta ligera, se usa el comando \texttt{tag} sin las opciones \texttt{-a} ni \texttt{-m}.
-Por ejemplo 
+Por ejemplo
 \begin{lstlisting}
 $ git tag v1.0
 \end{lstlisting}
@@ -577,7 +577,7 @@ El workflow de ramas (\textit{branches}) permite bifurcar el estado de los archi
 Es usual crear ramas para desarrollar nuevas funciones, o incluso para hacer pruebas sin temor de arruinar un proyecto funcional.
 También es muy usual en un workflow de equipo tener diferentes ramas para cada integrante del equipo, o para sub-equipos.
 
-El comando para crear nuevas ramas es 
+El comando para crear nuevas ramas es
 \begin{lstlisting}
 $ git branch <branchname>
 \end{lstlisting}
@@ -617,7 +617,7 @@ $ git checkout <branch>
 A la rama activa se le dice la rama \textit{checked-out}.
 Esto claro tiene que ver con que el comando para activar y crear ramas es \texttt{git checkout}, pero \texttt{checkout} hace más que eso.
 
-Si ahora hacemos un nuevo \textit{commit} después de haber cambiado a \texttt{testing} pasará lo siguiente: 
+Si ahora hacemos un nuevo \textit{commit} después de haber cambiado a \texttt{testing} pasará lo siguiente:
 
 \begin{figure}[h]
   \centering
@@ -656,7 +656,7 @@ Hay diferentes tipos de \textit{merge}s que pueden ocurrir.
 Cuando la rama que se unió estába directamente adelante, sin cambios divergentes, Git lleva a cabo una unión \textit{fast-forward} (avance rápido).
 Es decir, Git simplemente mueve el apuntador \texttt{HEAD} hacia adelante.
 
-Si después de unir dos ramas ya no necesitas la que fue unida, la puedes eliminar fácilmente con el comando \texttt{branch} y la opción \texttt{-d}, corto para \texttt{--delete} 
+Si después de unir dos ramas ya no necesitas la que fue unida, la puedes eliminar fácilmente con el comando \texttt{branch} y la opción \texttt{-d}, corto para \texttt{--delete}
 \begin{lstlisting}
 $ git branch -d <branch>
 \end{lstlisting}
@@ -734,7 +734,7 @@ Para esto existen las opciones \texttt{--merged} y \texttt{--no-merged} que act�
 Por ejemplo al correr
 \begin{lstlisting}
 $ git branch --merged
-  mergedbranch 
+  mergedbranch
 * master
 \end{lstlisting}
 vemos que la rama \texttt{mergedbranch} ya fué unida a \texttt{master}.
@@ -748,7 +748,7 @@ If you are sure you want to delete it, run 'git branch -D unmerged-b'.
 
 Como muestra el mensaje de ayuda del comando anterior, se puede sobreescribir el mecanismo de Git diseñado para no perder cambios usando el switch \texttt{-D} (en mayúscula).
 Esto solo se hace si estás consciente de que se perderán todos los cambios en esa rama.
-Por ejemplo, si era una rama \textit{throwaway} en la que se hizo un experimento. 
+Por ejemplo, si era una rama \textit{throwaway} en la que se hizo un experimento.
 
 \subsection{Branching Workflows}
 En esta subsección revisamos algunos de los \textit{workflows} más comunes que se usan para trabajar con Git y ramas.
@@ -785,6 +785,38 @@ Vale la pena hacer notar que el producto final no tiene nada de diferente a hace
 La única ventaja notable es que hace que la historia de \textit{commits}, los logs, esté más limpio y claro.
 
 Hay \textit{rebases} más complejos, pero francamente no entendí del todo, y valdrá la pena revisarlo con más calma.
+
+\subsubsection{No incluí los cambios que quería en un commit anterior. ¿Ahora qué hago?}
+Ua buena aplicación del rebasing es justo en la situación del título. ¿Qué tal si yo tenía planeado incluir los cambios a el archivo \texttt{ìndex.txt} en un commit que hice con el mensaje ``Cambios a index.txt'', pero me equivoqué y no añadí \texttt{index.txt} al \textit{staging area} antes de ese commit?
+
+En concreto: Consideremos el log de cambios de un repo:
+\begin{lstlisting}
+a0b0c0E3 (HEAD -> master) Cambios que no eran de index.txt
+.
+.
+.
+a0b0c0E1 Cambios a index.txt
+\end{lstlisting}
+
+Digamos que yo quería incluir los cambios a \texttt{index.txt} en el commit con hash \texttt{a0b0c0E1}, pero al correr \texttt{git status} me señala que los cambios no están ``staged for commit'' para el siguiente commit y por lo tanto no se añadieron antes.
+Para volver a antes de \texttt{a0b0c0E1} y ahora si añadir los cambios en ese commit, podemos usar rebase como en la siguiente receta:
+
+\begin{enumerate}
+	\item \texttt{git rebase --interactive 'a0b0c0E1\string^'}. Nótese que el hash del commit al que nos estamos refiriendo está postfijo por un ``caret'' (\string^). Eso indica rebase no a \texttt{a0b0c0E1}, sino \textit{antes} de el.
+	\item En el editor predeterminado se abrirá un archivo que se ve más o menos asi:
+\begin{lstlisting}
+pick a0b0c0E3 HEAD Cambios que no eran de index.txt
+pick a0b0c0E1 Cambios a index.txt
+\end{lstlisting}
+	Cambia \texttt{pick} a \texttt{edit} en la línea que tiene el chash del commit el cual deseas modificar o añadirle archivos. Guarda el archivo y ciérralo.
+	\item Después de los pasos anteriores, Git marca al commit \texttt{a0b0c0E1} como el actual (donde se encuentra \texttt{HEAD}), y por lo tanto se le pueden añadir cambios con ammend. Por ejemplo:
+\begin{lstlisting}
+git add index.txt
+git commit --amend -m "Ahora si, cambios a index.txt"
+\end{lstlisting}
+	\item Para acabar y volver a la punta de la rama actual, es decir donde estábamos antes, seguimos el consejo de Git y corremos \texttt{git rebase --continue}.
+\end{enumerate}
+
 
 \section{Distributed workflows}
 
