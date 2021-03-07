@@ -1,19 +1,18 @@
 # Getting a Git Repository
 
-
 Usualmente uno obtiene un repositorio de Git en dos maneras:
 
-1.  Tomas cualquier carpeta local en tu disco, y la conviertes en un
+1. Tomas cualquier carpeta local en tu disco, y la conviertes en un
     repositorio con `git init`, o bien
 
-2.  *Clonas* un repositorio de Git existente de algún otro lugar.
+2. *Clonas* un repositorio de Git existente de algún otro lugar.
 
 Para crear un repositorio nuevo desde una carpeta local, basta con
 navegar hasta la carpeta deseada a través de la terminal de comandos, y
 ejecutar el comando `git init` que creará un repositorio nuevo con todo
 lo necesario para usar Git, y rastrear cambios en los archivos de ese
 directorio. El comando `init` crea un “esqueleto de git”. En este punto,
-ningun archivo está siendo rastreado, todos aparecen como *untracked*.
+ningún archivo está siendo rastreado, todos aparecen como *untracked*.
 Si deseas empezar a rastrear cambios, debes cambiar el estatus de los
 archivos de *untracked* a *tracked* a través del commando `git add`.
 Cabe mencionar que los archivos nuevos, es decir los originales en un
@@ -25,7 +24,7 @@ rastrear.
 > Notas: El comando `git add` tiene dos funciones: Cambia el estatus de
 > un archivo de *untracked* a *tracked*, y además añade archivos
 > *modified* al *staging area* para prepararlos para un *commit*.
-> 
+>
 > `add` recibe como argumento nombres de archivos, o patrones *glob*.
 
 Tradicionalmente una vez que se han rastreado los archivos de interés se
