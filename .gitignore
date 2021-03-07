@@ -1,15 +1,1 @@
-# Ignores
-
-*.aux
-*.fdb_latexmk
-*.fls
-*.log
-*.out
-*.synctex.gz
-*.pdf
-*.bbl
-*.bcf
-*.blg
-*.run.xml
-
-.*
+book
