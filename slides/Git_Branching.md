@@ -1,101 +1,63 @@
 # Git Branching
 
-El workflow de ramas (*branches*) permite bifurcar el estado de los
-archivos en el *Working Directory* para hacer modificaciones, sin
-arruinar el estado de la rama principal. Es usual crear ramas para
-desarrollar nuevas funciones, o incluso para hacer pruebas sin temor de
-arruinar un proyecto funcional. También es muy usual en un workflow de
-equipo tener diferentes ramas para cada integrante del equipo, o para
-sub-equipos.
+Las ramas permiten bifurcar el árbol de versiones.
+
+##
+
+![](figs/timeline1.png){.stretch}
+
+##
+
+![](figs/timeline2.png){.stretch}
+
+##
+
+![](figs/timeline3.png){.stretch}
+
+##
+
+![](figs/timeline4.png){.stretch}
+
+##
+
+![](figs/timeline5.png){.stretch}
+
+# Creando ramas
 
 El comando para crear nuevas ramas es
 
     $ git branch <branchname>
 
-El crear nuevas ramas implica solamente crear un nuevo apuntador, que
-empieza apuntando al la rama en el cual se creó, en el mismo punto en el
-que se creó.
+El crear nuevas ramas implica solamente crear un nuevo apuntador, no
+se mueve a una.
 
-![Creación de una nueva
-rama.<span label="fig:two-branches"></span>](figs/two-branches.png)
-
-En la figura [3](#fig:two-branches) se muestra un ejemplo de lo que pasa
-cuando se crea una nueva rama. Las cajas grises con códigos hash unidas
-por flechas constituyen la rama original, usualmente llamada *master*.
-Cada caja gris representa un *commit*, representada por el código hash
-que la identifica. La caja amarilla apuntando al *commit* `f30ab`
-representa al apuntador que viene con cada rama, en ese caso el
-apuntador original que identifica a la rama, por eso tiene el nombre
-`master`. En el momento en el que se crea una nueva rama aparece el
-nuevo apuntador (caja naranja), en este caso llamada `testing`. Esa
-nueva caja llevará el nombre de la nueva rama recién creada, y es la que
-se encarga de apuntar a los cambios que se hicieron . En el momento en
-que se haga un nuevo *commit* estando en `testing`, el apuntador naranja
-avanzará, dejando atrás a `master`. A partir de ese punto se pueden
-combinar (*merge*) las ramas `master` y `testing` para ponerlas al día,
-o bien, regresar el estado de `testing` a como estaba en `master`.
+. . .
 
 El apuntador especial `HEAD` indica a Git en qué punto se está
-trabajando en un momento dado. Es decir, apunta a la rama y el punto
-sobre ella sobre el cual se escribirá al hacer un nuevo *commit*.
+trabajando en un momento dado.
 
-![`HEAD` apuntando a `master`](figs/head-to-master.png)
+##
+
+![](figs/head-to-master.png){.stretch}
+
+## Moviéndonos a otra rama
 
 Para cambiar de rama, es decir mover el apuntador `HEAD` para apuntar a
 `testing` y empezar a hacer *commit* ahi, usamos el comando
 
     $ git checkout <branch>
 
-A la rama activa se le dice la rama *checked-out*. Esto claro tiene que
-ver con que el comando para activar y crear ramas es `git checkout`,
-pero `checkout` hace más que eso.
+# Basic Branching and Merging
 
-Si ahora hacemos un nuevo *commit* después de haber cambiado a `testing`
-pasará lo siguiente:
+Para unir dos ramas:
 
-![`HEAD` avanzó dejando atrás `master`.](figs/advance-testing.png)
+:::incremental
+1. Checkout la rama receptora
+2. `git merge <branch>`
+3. Borrar `<branch>` (opcional)
+:::
 
-Si corremos el comando
-
-    $ git checkout master
-
-en este momento, `HEAD` los archivos del *Working Directory* volverán al
-estado en el que estaban en ese momento, y además se moverá `HEAD` de
-vuelta a ese punto. Es decir, si hacemos un nuevo *commit* en este
-punto, ahora habrá una bifurcación entre `master` y `testing`.
-
-![Bifurcación entre `master` y
-`testing`.<span label="fig:bifurcacion"></span>](figs/advance-master.png)
-
-Como muestra la figura [4](#fig:bifurcacion), al hacer nuevos *commits*
-se hace avanzar `HEAD`. Ambas ramas convergen en `f30ab` porque son el
-ancestro que tienen en común. Para visualizar estos movimientos se puede
-usar `git log –oneline –decorate –graph –all`.
-
-Para crear una rama nueva y moverse a ella en un solo comando, se
-utiliza `git checkout` con la opción `-b`, corto para `–branch`. Por
-ejemplo
-
-    $ git checkout testing
-
-crea una nueva rama llamada `testing`, y además mueve `HEAD` a ella para
-que el siguiente *commit* se haga sobre la nueva rama.
-
-## Basic Branching and Merging
-
-El procedimiento básico para unir (*merge*) dos ramas es moverse, o
-“activar” (*checkout*) la rama hacia la cual se va a unir, y correr el
-comando `git merge <branch>`. Hay diferentes tipos de *merge*s que
-pueden ocurrir. Cuando la rama que se unió estába directamente adelante,
-sin cambios divergentes, Git lleva a cabo una unión *fast-forward*
-(avance rápido). Es decir, Git simplemente mueve el apuntador `HEAD`
-hacia adelante.
-
-Si después de unir dos ramas ya no necesitas la que fue unida, la puedes
-eliminar fácilmente con el comando `branch` y la opción `-d`, corto para
-`–delete`
-
-    $ git branch -d <branch>
+# Merge conflicts
 
 Cuando intentas unir dos ramas con cambios divergentes, o a la que se
 intenta unir no es ancestro directo de la que se une, Git no puede hacer
@@ -136,12 +98,12 @@ archivos se dió el conflicto para empezar a solucionarlo
     On branch master
     You have unmerged paths.
       (fix conflicts and run "git commit")
-    
+
     Unmerged paths:
       (use "git add <file>..." to mark resolution)
-    
+
         both modified:      index.html
-    
+
     no changes added to commit (use "git add" and/or "git commit -a")
 
 En el ejemplo anterior el conflicto se dió en el archivo `index.html`.

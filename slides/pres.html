@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
-  <title>Commit_History</title>
+  <title>FLAT</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -16,6 +16,69 @@
     div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
   <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/theme/moon.css" id="theme">
@@ -26,12 +89,217 @@
 
 
 <section>
-<section id="viewing-the-commit-history" class="title-slide slide level1">
-<h1>Viewing the Commit History</h1>
-<p>El punto entero de tener un sistema de control de versiones es poder registrar cambios graduales</p>
-<p>Para revisar el historial de cambios y confirmaciones existe el comando <code>git log</code>. Vamos a correrlo.</p>
+<section id="qué-es-git" class="title-slide slide level1">
+<h1>¿Qué es Git?</h1>
+<div class="fragment">
+<ul>
+<li><p>Git y GitHub no son la misma cosa</p></li>
+<li><p>Git es un sistema de control de versiones</p></li>
+<li><p>Permite organizar diferentes versiones de un mismo archivo o todo un proyecto</p></li>
+<li><p>Permite colaborar con otras personas</p></li>
+</ul>
+</div>
+</section>
+<section id="qué-es-github" class="slide level2">
+<h2>Qué es GitHub?</h2>
+<ul>
+<li><p>GitHub es un servicio de almacenamiento. Como Drive</p></li>
+<li><p>Da otras cosas útiles como issues, pull requests, etc…</p></li>
+</ul>
+</section>
+<section id="meme-ilustrativo" class="slide level2">
+<h2>Meme ilustrativo</h2>
+<img data-src="figs/meme_git_v_gh.jpg" title="fig:" class="stretch" alt="Meme ilustrativo." />
+</section></section>
+<section>
+<section id="cómo-funciona-git" class="title-slide slide level1">
+<h1>Cómo funciona Git?</h1>
+
+</section>
+<section id="analogía-con-roma" class="slide level2">
+<h2>Analogía con Roma</h2>
+<img data-src="figs/stage1.png" class="stretch" />
+</section>
+<section id="julio-cesar-se-vuelve-emperador" class="slide level2">
+<h2>Julio Cesar se vuelve emperador</h2>
+<img data-src="figs/stage2.png" class="stretch" />
+</section>
+<section id="brutus-asesina-a-julio-cesar" class="slide level2">
+<h2>Brutus asesina a Julio Cesar</h2>
+<img data-src="figs/stage3.png" class="stretch" />
+</section>
+<section id="bifurcación" class="slide level2">
+<h2>Bifurcación</h2>
+<img data-src="figs/stage4.png" class="stretch" />
+</section>
+<section id="modelo-distribuido" class="slide level2">
+<h2>Modelo distribuido</h2>
+<p><img data-src="figs/distributed.png" class="stretch" alt="Distributed" /> # The Three States Git tiene tres estados en los que puede estar un archivo en cualquier momento dado:</p>
+<div>
+<ul>
+<li class="fragment"><p><strong>Modified</strong></p></li>
+<li class="fragment"><p><strong>Staged / Preparado</strong></p></li>
+<li class="fragment"><p><strong>Committed / Confirmado</strong></p></li>
+</ul>
+</div>
+<div class="fragment">
+<ol type="1">
+<li>Ignorados</li>
+</ol>
+</div>
+</section>
+<section id="tres-etapas" class="slide level2">
+<h2>Tres etapas</h2>
+<p>Similarmente, hay tres secciones o “espacios” en cada proyecto de Git:</p>
+<div>
+<ol type="1">
+<li class="fragment"><p>Working Directory.</p></li>
+<li class="fragment"><p>Staging Area.</p></li>
+<li class="fragment"><p>Git Repository.</p></li>
+</ol>
+</div>
+</section></section>
+<section id="basic-git-workflow" class="title-slide slide level1">
+<h1>Basic Git Workflow</h1>
+<div>
+<ol type="1">
+<li class="fragment"><p>Modifica archivos locales en disco.</p></li>
+<li class="fragment"><p>Se elige qué archivos se desea rastrear (<em>track</em>) añadiéndolos al <em>staging area</em>.</p>
+<ul>
+<li class="fragment">Son estos y solo estos los archivos que serán parte del siguiente commit</li>
+</ul></li>
+<li class="fragment"><p>Se hace un <em>commit</em> o confirmación</p>
+<ul>
+<li class="fragment">Esta versión queda guardada en el historial de cambios.</li>
+</ul></li>
+</ol>
+</div>
+</section>
+
+<section id="básicos-de-git" class="title-slide slide level1">
+<h1>Básicos de Git</h1>
+
+</section>
+
+<section id="getting-a-git-repository" class="title-slide slide level1">
+<h1>Getting a Git Repository</h1>
+<p>Usualmente uno obtiene un repositorio de Git en dos maneras:</p>
+<div>
+<ol type="1">
+<li class="fragment"><p>Se crea un repo con una carpeta existente, o bien.</p></li>
+<li class="fragment"><p><em>Clonas</em> un repositorio de Git existente de algún otro lugar.</p></li>
+</ol>
+</div>
+</section>
+
+<section>
+<section id="cómo-iniciar-repo-con-carpeta-existente" class="title-slide slide level1">
+<h1>¿Cómo iniciar repo con carpeta existente?</h1>
+
+</section>
+<section id="inicializando-un-repo-vacío." class="slide level2">
+<h2>Inicializando un repo vacío.</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> git init</span></code></pre></div>
+<div class="fragment">
+<p>Señalando qué archivos rastrear. En este caso todos los de python.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> git add <span class="pp">*</span>.py</span></code></pre></div>
+</div>
+</section>
+<section id="notas" class="slide level2">
+<h2>Notas</h2>
+<blockquote>
+<p>El comando <code>git add</code> tiene dos funciones: Cambia el estatus de un archivo de <em>untracked</em> a <em>tracked</em>, y además añade archivos <em>modified</em> al <em>staging area</em> para prepararlos para un <em>commit</em>.</p>
+<p><code>add</code> recibe como argumento nombres de archivos, o patrones <em>glob</em>.</p>
+</blockquote>
+</section></section>
+<section>
+<section id="obteniendo-un-repo-de-un-lugar-remoto" class="title-slide slide level1">
+<h1>Obteniendo un repo de un lugar remoto</h1>
+<p>Podemos hacer un <em>clon</em> exacto de un proyecto con todo y su historial de cambios.</p>
+</section>
+<section id="clonando-de-algún-lugar-en-internet" class="slide level2">
+<h2>Clonando de algún lugar en internet</h2>
+<p>Dado un URL:</p>
+<div class="fragment">
+<pre><code>$ git clone https://github.com/progit/progit2</code></pre>
+<p>Esto crea una nueva carpeta en tu current working directory con los archivos del repo &amp; el historial de cambios. # Recording changes</p>
+<p>Una vez que se tiene un repositorio de Git y archivos rastreados, se puede empezar a usar todo el potencial de Git.</p>
+</div>
+</section>
+<section id="ciclo-de-vida-de-un-archivo" class="slide level2">
+<h2>Ciclo de vida de un archivo</h2>
+<img data-src="figs/lifecycle.png" class="stretch" />
+<div class="fragment">
+<p>Para checar en qué punto del ciclo se encuentran los archivos existe el comando <code>git status</code>.</p>
+</div>
+</section>
+<section id="checando-estatus" class="slide level2 allowframebreaks">
+<h2 class="allowframebreaks">Checando estatus</h2>
+<div>
+<ul>
+<li class="fragment"><p>“working directory clean” significa que no hay cambios</p></li>
+<li class="fragment"><p>Veamos qué pasa al añadir un archivo</p></li>
+<li class="fragment"><p>Git reconoce el archivo, pero no rastreará sus cambios. Usamos…</p></li>
+<li class="fragment"><p>Un paso antes de confirmar</p></li>
+</ul>
+</div>
+</section></section>
+<section>
+<section id="commiting-your-changes" class="title-slide slide level1">
+<h1>Commiting your changes</h1>
+<div>
+<ol type="1">
+<li class="fragment">Guardar cambios en git con: <code>git commit</code>.
+<ul>
+<li class="fragment">Es mejor siempre usar el modificador <code>-m</code></li>
+</ul></li>
+<li class="fragment">El output da información interesante:
+<ul>
+<li class="fragment">Nombre de rama. Aquí <code>main</code>.</li>
+<li class="fragment">Código alfanumérico llamado checksum</li>
+<li class="fragment">Estadísticas de cambios</li>
+</ul></li>
+</ol>
+</div>
+</section>
+<section id="un-pequeño-atajo" class="slide level2">
+<h2>Un pequeño atajo</h2>
+<p>Es común querer agregar todo lo modificado al staging area directamente.</p>
+<div class="fragment">
+<p>Combinamos modificadores <code>-m</code> con <code>-a</code> que es corto para <code>--all</code>.</p>
+<pre><code>$ git commit -a -m &quot;Fixes&quot;</code></pre>
+</div>
+</section></section>
+<section>
+<section id="compartiendo-con-el-mundo" class="title-slide slide level1">
+<h1>Compartiendo con el mundo</h1>
+<p>El punto entero es trabajar con otras personas.</p>
+<div class="fragment">
+<p>Recordamos el modelo distribuido anterior.</p>
+</div>
 </section>
 <section id="section" class="slide level2">
+<h2></h2>
+<img data-src="figs/distributed.png" class="stretch" />
+<div class="fragment">
+<p>En este caso GitHub será el remoto. (Server)</p>
+</div>
+</section>
+<section id="section-1" class="slide level2">
+<h2></h2>
+<p>El comando push se contacta con el remoto.</p>
+<pre><code>$ git push origin main</code></pre>
+<div class="fragment">
+<p>Toma 2 cosas:</p>
+<ul>
+<li>El nombre del remoto: <code>origin</code></li>
+<li>El nombre de la “rama”: <code>main</code> # Viewing the Commit History</li>
+</ul>
+<p>El punto entero de tener un sistema de control de versiones es poder registrar cambios graduales</p>
+<p>Para revisar el historial de cambios y confirmaciones existe el comando <code>git log</code>. Vamos a correrlo.</p>
+</div>
+</section>
+<section id="section-2" class="slide level2">
 <h2></h2>
 <p>Muestra un listado de commits en orden cronológico inverso e información relevante de cada uno.</p>
 <p>Algunos modificadores útiles:</p>
@@ -43,6 +311,261 @@
 </ul>
 </div>
 </section></section>
+<section>
+<section id="undoing-things" class="title-slide slide level1">
+<h1>Undoing things</h1>
+<p>De las cosas más útiles de usar git es que se pueden revertir cambios. Algunos ejemplos prácticos</p>
+</section>
+<section id="committeando-antes-de-tiempo" class="slide level2">
+<h2>Committeando antes de tiempo</h2>
+<div class="fragment">
+<pre><code>$ git commit --ammend -m &quot;Mensaje&quot;</code></pre>
+<p>Permite por ejemplo cambiar mensaje de confirmación</p>
+</div>
+</section>
+<section id="staging-antes-de-tiempo" class="slide level2">
+<h2>Staging antes de tiempo</h2>
+<p>Para “bajar” un archivo del staging area</p>
+<pre><code>$ git reset HEAD &lt;archivo&gt;</code></pre>
+</section>
+<section id="revertir-un-archivo-al-commit-previo" class="slide level2">
+<h2>Revertir un archivo al commit previo</h2>
+<div class="fragment">
+<pre><code>$ git checkout - &lt;archivo&gt;</code></pre>
+</div>
+<div class="fragment">
+<blockquote>
+<p>Precaución: No hay manera de revertir este cambio. Se reemplaza por completo al archivo con otra versión distinta. # Working with remotes</p>
+</blockquote>
+<p>Un remote es el servidor externo en el modelo distribuido.</p>
+</div>
+<div class="fragment">
+<p>Interactuamos con remotes a través de 3 comandos:</p>
+<div class="incremental.">
+<ul>
+<li><code>pull</code></li>
+<li><code>push</code></li>
+<li><code>fech</code></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="listando-remotes" class="slide level2">
+<h2>Listando remotes</h2>
+<pre><code>$ git remote -v</code></pre>
+<div class="fragment">
+<p>Si se clonó de GitHub verás el URL original. Si se inició con una carpeta no habrá ningún remote configurado</p>
+</div>
+<div class="fragment">
+<p>Cuando se clona un repo se añade automáticamente un remote: <code>origin</code>.</p>
+</div>
+<div class="fragment">
+<p>Se pueden añadir remotes</p>
+<pre><code>$ git remote add &lt;shortname&gt; &lt;url&gt;</code></pre>
+</div>
+</section>
+<section id="pulling" class="slide level2">
+<h2>Pulling</h2>
+<p>Podemos <em>jalar</em> (descargar) la versión de una rama específica de un remoto específico.</p>
+<pre><code>$ git pull &lt;remote&gt; &lt;branch&gt;</code></pre>
+<p>Pull no solo baja los contenidos, sino que los <em>mezcla</em> con la rama actual</p>
+<div class="fragment">
+<p>Se puede descargar sin mezclar con fetch.</p>
+<pre><code>$ git fetch origin main</code></pre>
+<p>Que crea una <em>rama</em> nueva sin modificar tus archivos.</p>
+</div>
+</section>
+<section id="pushing" class="slide level2">
+<h2>Pushing</h2>
+<p>Se puede subir a GitHub con el comando <code>push</code>.</p>
+<pre><code>$ git push &lt;remote&gt; &lt;branch&gt;</code></pre>
+<div class="fragment">
+<p>Para poder hacer push debes estar al día con <code>&lt;branch&gt;</code></p>
+</div>
+<div class="fragment">
+<p>Más información de un remote con</p>
+<pre><code>$ git remote show &lt;remote&gt;</code></pre>
+</div>
+</section>
+<section id="tagging" class="slide level2">
+<h2>Tagging</h2>
+<p>Otra habilidad de Git es etiquetar (<em>tag</em>) <em>commit</em>s específicos</p>
+<p>Permite ir clasificando por “versiones”, como 1.0.x</p>
+<div class="fragment">
+<p>Se listan los tags existentes con <code>git tag</code>. # Git Branching</p>
+<p>Las ramas permiten bifurcar el árbol de versiones.</p>
+</div>
+</section>
+<section id="section-3" class="slide level2">
+<h2></h2>
+<img data-src="figs/timeline1.png" class="stretch" />
+</section>
+<section id="section-4" class="slide level2">
+<h2></h2>
+<img data-src="figs/timeline2.png" class="stretch" />
+</section>
+<section id="section-5" class="slide level2">
+<h2></h2>
+<img data-src="figs/timeline3.png" class="stretch" />
+</section>
+<section id="section-6" class="slide level2">
+<h2></h2>
+<img data-src="figs/timeline4.png" class="stretch" />
+</section>
+<section id="section-7" class="slide level2">
+<h2></h2>
+<img data-src="figs/timeline5.png" class="stretch" />
+</section></section>
+<section>
+<section id="creando-ramas" class="title-slide slide level1">
+<h1>Creando ramas</h1>
+<p>El comando para crear nuevas ramas es</p>
+<pre><code>$ git branch &lt;branchname&gt;</code></pre>
+<p>El crear nuevas ramas implica solamente crear un nuevo apuntador, no se mueve a una.</p>
+<div class="fragment">
+<p>El apuntador especial <code>HEAD</code> indica a Git en qué punto se está trabajando en un momento dado.</p>
+</div>
+</section>
+<section id="section-8" class="slide level2">
+<h2></h2>
+<img data-src="figs/head-to-master.png" class="stretch" />
+</section>
+<section id="moviéndonos-a-otra-rama" class="slide level2">
+<h2>Moviéndonos a otra rama</h2>
+<p>Para cambiar de rama, es decir mover el apuntador <code>HEAD</code> para apuntar a <code>testing</code> y empezar a hacer <em>commit</em> ahi, usamos el comando</p>
+<pre><code>$ git checkout &lt;branch&gt;</code></pre>
+</section></section>
+<section id="basic-branching-and-merging" class="title-slide slide level1">
+<h1>Basic Branching and Merging</h1>
+<p>Para unir dos ramas:</p>
+<div>
+<ol type="1">
+<li class="fragment">Checkout la rama receptora</li>
+<li class="fragment"><code>git merge &lt;branch&gt;</code></li>
+<li class="fragment">Borrar <code>&lt;branch&gt;</code> (opcional)</li>
+</ol>
+</div>
+</section>
+
+<section>
+<section id="merge-conflicts" class="title-slide slide level1">
+<h1>Merge conflicts</h1>
+<p>Cuando intentas unir dos ramas con cambios divergentes, o a la que se intenta unir no es ancestro directo de la que se une, Git no puede hacer una unión <em>fast-forward</em>. En esos casos, Git tiene que hacer una unión entre tres commits (<em>three-way merge</em>), que podemos pensar como nodos sobre las ramas. Sin embargo, como los cambios en ambas ramas no conflictúan entre sí, Git aún puede hacer una unión simple; es decir, una que no requiere intervención del usuario. Cuando esto sucede, se dice que no hay conflictos. En este caso particular, la unión se hace entre los dos nodos usuales más un tercer nodo que es su ancestro común más cercano.</p>
+<p>Al unir dos ramas, Git combina los contenidos de manera automática (si puede), y automáticamente crea un nuevo <em>commit</em>.</p>
+</section>
+<h3 id="basic-merge-conflicts">Basic Merge Conflicts</h3>
+<p>Hay ocasiones en las que Git no puede hacer uniones simples y necesita consultar con un usuario cuales cambios mantener. Estos conflictos se dan cuando se intentan fusionar (unir) dos ramas que tienen cambios que no son compatibles entre si. Por ejemplo, cuando se modifica un archivo de dos maneras distintas en el mismo lugar con respecto a el ancestro en común más cercano.</p>
+<p>Un ejemplo de cuando no se puede hacer una unión limpia:</p>
+<pre><code>$ git merge iss53
+Auto-merging index.html
+CONFLICT (content): Merge conflict in index.html
+Automatic merge failed; fix conflicts and then commit the result.</code></pre>
+<p>Cuando sucede un conflicto, Git pausa el proceso de unión que culmina con un <em>commit</em> y espera a que el usuario resuelva los conflictos. Si corremos <code>git status</code> después de un conflicto, podemos ver en qué archivos se dió el conflicto para empezar a solucionarlo</p>
+<pre><code>$git status
+On branch master
+You have unmerged paths.
+  (fix conflicts and run &quot;git commit&quot;)
+
+Unmerged paths:
+  (use &quot;git add &lt;file&gt;...&quot; to mark resolution)
+
+    both modified:      index.html
+
+no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</code></pre>
+<p>En el ejemplo anterior el conflicto se dió en el archivo <code>index.html</code>. Cuando ocurre un conflicto Git modifica los archivos y les añade marcadores para ayudar a resolver el conflicto. Estos marcadores están para que se pueda abrir manualmente el archivo, y decidir qué cambios se quedan y cuales se van. Abriendo el archivo con conflicto, se vería algo como esto:</p>
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD:archivo.txt
+Contenido en HEAD. Es decir, rama local hacia la cual se hace la union
+=======
+Contenido en branch, rama que esta siendo unida a HEAD
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; branchname:archivo.txt</code></pre>
+<p>Entre los corchetes de apertura <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> y el separador <code>=======</code> están los cambios que están en donde actualmente se encuentra <code>HEAD</code>. Es decir, los cambios en la rama que está activada actualmente, hacia la cual se quiere unir. En el encabezado se aclara en qué rama está, y el archivo que tuvo conflictos. En la parte desde el separador hasta los corchetes de cerradura <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> están los cambios <em>incoming</em>. Es decir, los que están en la rama que se está tratando de unir.</p>
+<p>Algunos editores de texto y IDEs están configurados para reconocer estos bloques generados automáticamente por Git, y dan ayuda visual poniendolos en fondos de colores, o dando botones de ayuda para aceptar cambios <em>incoming</em>, mantener el estado actual, o incluso mantener ambos. Si tu editor o IDE no tiene esta funcionalidad, puedes usar las herramientas visuales que vienen con Git, corriendo <code>git mergetool</code>.</p>
+<p>Para resolver un conflicto se eligen los cambios a mantener (o se borran ambos), y se quitan los marcadores generados por Git. Una vez que se decidió qué cambios mantener y se añade el archivo resuelto (sin marcadores) al <em>Staging Area</em>, Git entenderá que el conflicto fue resuelto. Si se corre <code>git status</code> en este punto Git pedirá confirmación de que se resolvió exitosamente el conflicto. Para finalizar la unión se confirman todos los cambios con <code>git commit</code>. Nótese que ahora no escribimos un mensaje de confirmación, Git lo añade automáticamente con la información más importante para señalizar que hubo una unión y resolución de conflicto.</p>
+<h3 id="branch-management">Branch Management</h3>
+<p>El comando <code>git branch</code> al usarse sin argumentos va a listar todas las ramas del repo, y marca la activa con un <code>*</code> al lado izquierdo de su nombre. Para mostrar el <em>commit</em> más reciente en cada rama, se puede usar <code>git branch -v</code>.</p>
+<p>A veces es util ver si las ramas tienen cambios incorporados a la rama actual, o si aún no se han unido. Para esto existen las opciones <code>–merged</code> y <code>–no-merged</code> que actúan como filtro. Por ejemplo al correr</p>
+<pre><code>$ git branch --merged
+  mergedbranch
+* master</code></pre>
+<p>vemos que la rama <code>mergedbranch</code> ya fué unida a <code>master</code>. Como ya está unida, es seguro eliminarla con <code>git branch -d mergedbranch</code> sin ningún peligro. Sin embargo, si intentamos eliminar una rama que no ha sido unida, digamos <code>unmerged-b</code>, Git nos dará un error y pedirá confirmación.</p>
+<pre><code>$ git branch -d unmerged-b
+error: The branch &#39;unmerged-b&#39; is not fully merged.
+If you are sure you want to delete it, run &#39;git branch -D unmerged-b&#39;.</code></pre>
+<p>Como muestra el mensaje de ayuda del comando anterior, se puede sobreescribir el mecanismo de Git diseñado para no perder cambios usando el switch <code>-D</code> (en mayúscula). Esto solo se hace si estás consciente de que se perderán todos los cambios en esa rama. Por ejemplo, si era una rama <em>throwaway</em> en la que se hizo un experimento. # Basic Branching and Merging</p>
+<p>El procedimiento básico para unir (<em>merge</em>) dos ramas es moverse, o “activar” (<em>checkout</em>) la rama hacia la cual se va a unir, y correr el comando <code>git merge &lt;branch&gt;</code>. Hay diferentes tipos de <em>merge</em>s que pueden ocurrir. Cuando la rama que se unió estába directamente adelante, sin cambios divergentes, Git lleva a cabo una unión <em>fast-forward</em> (avance rápido). Es decir, Git simplemente mueve el apuntador <code>HEAD</code> hacia adelante.</p>
+<p>Si después de unir dos ramas ya no necesitas la que fue unida, la puedes eliminar fácilmente con el comando <code>branch</code> y la opción <code>-d</code>, corto para <code>–delete</code></p>
+<pre><code>$ git branch -d &lt;branch&gt;</code></pre>
+<p>Cuando intentas unir dos ramas con cambios divergentes, o a la que se intenta unir no es ancestro directo de la que se une, Git no puede hacer una unión <em>fast-forward</em>. En esos casos, Git tiene que hacer una unión entre tres commits (<em>three-way merge</em>), que podemos pensar como nodos sobre las ramas. Sin embargo, como los cambios en ambas ramas no conflictúan entre sí, Git aún puede hacer una unión simple; es decir, una que no requiere intervención del usuario. Cuando esto sucede, se dice que no hay conflictos. En este caso particular, la unión se hace entre los dos nodos usuales más un tercer nodo que es su ancestro común más cercano.</p>
+<p>Al unir dos ramas, Git combina los contenidos de manera automática (si puede), y automáticamente crea un nuevo <em>commit</em>.</p>
+<h3 id="basic-merge-conflicts-1">Basic Merge Conflicts</h3>
+<p>Hay ocasiones en las que Git no puede hacer uniones simples y necesita consultar con un usuario cuales cambios mantener. Estos conflictos se dan cuando se intentan fusionar (unir) dos ramas que tienen cambios que no son compatibles entre si. Por ejemplo, cuando se modifica un archivo de dos maneras distintas en el mismo lugar con respecto a el ancestro en común más cercano.</p>
+<p>Un ejemplo de cuando no se puede hacer una unión limpia:</p>
+<pre><code>$ git merge iss53
+Auto-merging index.html
+CONFLICT (content): Merge conflict in index.html
+Automatic merge failed; fix conflicts and then commit the result.</code></pre>
+<p>Cuando sucede un conflicto, Git pausa el proceso de unión que culmina con un <em>commit</em> y espera a que el usuario resuelva los conflictos. Si corremos <code>git status</code> después de un conflicto, podemos ver en qué archivos se dió el conflicto para empezar a solucionarlo</p>
+<pre><code>$git status
+On branch master
+You have unmerged paths.
+  (fix conflicts and run &quot;git commit&quot;)
+
+Unmerged paths:
+  (use &quot;git add &lt;file&gt;...&quot; to mark resolution)
+
+    both modified:      index.html
+
+no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</code></pre>
+<p>En el ejemplo anterior el conflicto se dió en el archivo <code>index.html</code>. Cuando ocurre un conflicto Git modifica los archivos y les añade marcadores para ayudar a resolver el conflicto. Estos marcadores están para que se pueda abrir manualmente el archivo, y decidir qué cambios se quedan y cuales se van. Abriendo el archivo con conflicto, se vería algo como esto:</p>
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD:archivo.txt
+Contenido en HEAD. Es decir, rama local hacia la cual se hace la union
+=======
+Contenido en branch, rama que esta siendo unida a HEAD
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; branchname:archivo.txt</code></pre>
+<p>Entre los corchetes de apertura <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> y el separador <code>=======</code> están los cambios que están en donde actualmente se encuentra <code>HEAD</code>. Es decir, los cambios en la rama que está activada actualmente, hacia la cual se quiere unir. En el encabezado se aclara en qué rama está, y el archivo que tuvo conflictos. En la parte desde el separador hasta los corchetes de cerradura <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> están los cambios <em>incoming</em>. Es decir, los que están en la rama que se está tratando de unir.</p>
+<p>Algunos editores de texto y IDEs están configurados para reconocer estos bloques generados automáticamente por Git, y dan ayuda visual poniendolos en fondos de colores, o dando botones de ayuda para aceptar cambios <em>incoming</em>, mantener el estado actual, o incluso mantener ambos. Si tu editor o IDE no tiene esta funcionalidad, puedes usar las herramientas visuales que vienen con Git, corriendo <code>git mergetool</code>.</p>
+<p>Para resolver un conflicto se eligen los cambios a mantener (o se borran ambos), y se quitan los marcadores generados por Git. Una vez que se decidió qué cambios mantener y se añade el archivo resuelto (sin marcadores) al <em>Staging Area</em>, Git entenderá que el conflicto fue resuelto. Si se corre <code>git status</code> en este punto Git pedirá confirmación de que se resolvió exitosamente el conflicto. Para finalizar la unión se confirman todos los cambios con <code>git commit</code>. Nótese que ahora no escribimos un mensaje de confirmación, Git lo añade automáticamente con la información más importante para señalizar que hubo una unión y resolución de conflicto.</p>
+<h3 id="branch-management-1">Branch Management</h3>
+<p>El comando <code>git branch</code> al usarse sin argumentos va a listar todas las ramas del repo, y marca la activa con un <code>*</code> al lado izquierdo de su nombre. Para mostrar el <em>commit</em> más reciente en cada rama, se puede usar <code>git branch -v</code>.</p>
+<p>A veces es util ver si las ramas tienen cambios incorporados a la rama actual, o si aún no se han unido. Para esto existen las opciones <code>–merged</code> y <code>–no-merged</code> que actúan como filtro. Por ejemplo al correr</p>
+<pre><code>$ git branch --merged
+  mergedbranch
+* master</code></pre>
+<p>vemos que la rama <code>mergedbranch</code> ya fué unida a <code>master</code>. Como ya está unida, es seguro eliminarla con <code>git branch -d mergedbranch</code> sin ningún peligro. Sin embargo, si intentamos eliminar una rama que no ha sido unida, digamos <code>unmerged-b</code>, Git nos dará un error y pedirá confirmación.</p>
+<pre><code>$ git branch -d unmerged-b
+error: The branch &#39;unmerged-b&#39; is not fully merged.
+If you are sure you want to delete it, run &#39;git branch -D unmerged-b&#39;.</code></pre>
+<p>Como muestra el mensaje de ayuda del comando anterior, se puede sobreescribir el mecanismo de Git diseñado para no perder cambios usando el switch <code>-D</code> (en mayúscula). Esto solo se hace si estás consciente de que se perderán todos los cambios en esa rama. Por ejemplo, si era una rama <em>throwaway</em> en la que se hizo un experimento. # Branching Workflows</p>
+<p>En esta subsección revisamos algunos de los <em>workflows</em> más comunes que se usan para trabajar con Git y ramas. Esto es en realidad más descriptivo que normativo, pero es útil para estructurar proyectos grandes. En especial porque estos <em>workflows</em> están diseñados para evitar conflictos a la hora de las uniones, y tener tantas uniones simples como sea posible.</p>
+<h3 id="long-running-branches">Long-Running Branches</h3>
+<p>La estructura de desarrollo de ramas <em>long-running</em> se basa en tener un número pequeño de ramas principales que siempre están abiertas, dedicadas a las diferentes etapas del desarrollo, las cuales se unen entre si de manera regular.</p>
+<p>Una estrategia común es tener dos ramas principales: <em>master</em> y <em>development</em> (los nombres no son importantes). En <code>master</code> se tiene el código en su estado más pulido, mientras que en <code>development</code> se hacen los cambios importantes que solo se unen a <code>master</code> una vez que están terminados, probados, etc… Es usual agregar una rama o serie de ramas más dedicadas a resolver problemas particulares. Estas ramas se unen a <code>development</code> una vez que se resolvió aquello para lo cual fueron creadas, y se eliminan poco después. Este tipo de ramas se conocen como <em>topic branches</em>, o ramas de tema.</p>
+<p>Es útil pensar en las ramas estructuradas de esta manera como almacenes en los que se guarda código en función de su madurez. # Rebasing</p>
+<p>Como el nombre sugiere, consiste en cambiar de base una versión particular. Es decir, es como hacer los cambios que se efectuaron a través de una rama, como si se hubieran hecho empezando desde otro punto de la rama o de otra rama por completo.</p>
+<pre><code>$ git rebase master</code></pre>
+<p>La operación funciona encontrando al ancestro común de las dos ramas que se están uniendo, y aplicando lo cambios gradualmente. Una vez que se hace un <em>rebase</em>, se puede hacer un <em>merge</em> simple del tipo <em>fast-forward</em> hasta la punta de la rama. Todo eso gracias a que ahora la punta de la rama y el <em>commit</em> al que se hizo el <em>rebase</em> tienen una ancestría en común, una ancestría lineal. Ya no hay ningún conflicto de versiones.</p>
+<p>Vale la pena hacer notar que el producto final no tiene nada de diferente a hacer un <em>merge</em>. La única ventaja notable es que hace que la historia de <em>commits</em>, los logs, esté más limpio y claro.</p>
+<p>Hay <em>rebases</em> más complejos, pero francamente no entendí del todo, y valdrá la pena revisarlo con más calma.</p>
+<h3 id="no-incluí-los-cambios-que-quería-en-un-commit-anterior.-ahora-qué-hago">No incluí los cambios que quería en un commit anterior. ¿Ahora qué hago?</h3>
+<p>Ua buena aplicación del rebasing es justo en la situación del título. ¿Qué tal si yo tenía planeado incluir los cambios a el archivo <code>ìndex.txt</code> en un commit que hice con el mensaje “Cambios a index.txt”, pero me equivoqué y no añadí <code>index.txt</code> al <em>staging area</em> antes de ese commit?</p>
+<p>En concreto: Consideremos el log de cambios de un repo:</p>
+<pre><code>a0b0c0E3 (HEAD -&gt; master) Cambios que no eran de index.txt
+.
+.
+.
+a0b0c0E1 Cambios a index.txt</code></pre>
+<p>Digamos que yo quería incluir los cambios a <code>index.txt</code> en el commit con hash <code>a0b0c0E1</code>, pero al correr <code>git status</code> me señala que los cambios no están “staged for commit” para el siguiente commit y por lo tanto no se añadieron antes. Para volver a antes de <code>a0b0c0E1</code> y ahora si añadir los cambios en ese commit, podemos usar rebase como en la siguiente receta:</p>
+<ol type="1">
+<li><p><code>git rebase –interactive ’a0b0c0E1^’</code>. Nótese que el hash del commit al que nos estamos refiriendo está postfijo por un “caret” (^). Eso indica rebase no a <code>a0b0c0E1</code>, sino <em>antes</em> de el.</p></li>
+<li><p>En el editor predeterminado se abrirá un archivo que se ve más o menos asi:</p>
+<pre><code>pick a0b0c0E3 HEAD Cambios que no eran de index.txt
+pick a0b0c0E1 Cambios a index.txt</code></pre>
+<p>Cambia <code>pick</code> a <code>edit</code> en la línea que tiene el chash del commit el cual deseas modificar o añadirle archivos. Guarda el archivo y ciérralo.</p></li>
+<li><p>Después de los pasos anteriores, Git marca al commit <code>a0b0c0E1</code> como el actual (donde se encuentra <code>HEAD</code>), y por lo tanto se le pueden añadir cambios con ammend. Por ejemplo:</p>
+<pre><code>git add index.txt
+git commit --amend -m &quot;Ahora si, cambios a index.txt&quot;</code></pre></li>
+<li><p>Para acabar y volver a la punta de la rama actual, es decir donde estábamos antes, seguimos el consejo de Git y corremos <code>git rebase     –continue</code>.# Distributed workflows</p></li>
+</ol></section>
     </div>
   </div>
 
